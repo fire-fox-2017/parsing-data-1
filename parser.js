@@ -39,7 +39,8 @@ class PersonParser {
   }
 
   save(){
-    var str = `\n${this._people[this._people.length-1].id},${this._people[this._people.length-1].first_name},${this._people[this._people.length-1].last_name},${this._people[this._people.length-1].email},${this._people[this._people.length-1].phone},${this._people[this._people.length-1].created_at}`
+    let d = new Date(this._people[this._people.length-1].created_at).toISOString()
+    var str = `\n${this._people[this._people.length-1].id},${this._people[this._people.length-1].first_name},${this._people[this._people.length-1].last_name},${this._people[this._people.length-1].email},${this._people[this._people.length-1].phone},${d}`
     const fs = require('fs')
     fs.appendFileSync('people.csv',str,'utf8')
   }
@@ -49,6 +50,6 @@ class PersonParser {
 let parser = new PersonParser('people.csv')
 console.log(parser.getPeople())
 console.log(`There are ${parser._people.length} people in the file '${parser._file}'.`)
-parser.addPerson(201,'Bill', 'Koo', 'bill@gmail.com', 087781024, 'now' )
+parser.addPerson(201,'Bill', 'Koo', 'bill@gmail.com', 087781024, 'Tue, 05 Apr 2017 17:10:12 GMT' )
 parser.save()
 console.log(`There are ${parser._people.length} people in the file '${parser._file}'.`)
