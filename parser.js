@@ -32,16 +32,16 @@ class PersonParser {
 
         for (let i=1; i<file.length; i++){ //membuat array of object
           var date = new Date(data[i][5]);
-          var person = new Person(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], date);
+          var person = new Person(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], date.toUTCString());
           this._people.push(person);
         }
 
         return this._people;
-
     }
 
     addPerson(id, first_name, last_name, email, phone, created_at) {
-        let person1 = new Person(id, first_name, last_name, email, phone, created_at);
+        let dateBaru = new Date(created_at);
+        let person1 = new Person(id, first_name, last_name, email, phone, dateBaru.toUTCString());
         this._people.push(person1);
     }
 
@@ -52,15 +52,19 @@ class PersonParser {
     }
 
     get size() {
-        return this._people.length;
+        return this._people.length - 2; //satunya merupakan baris atribut, satunya lagi karena indeks mulai dari 0
+
     }
 
 }
 
 let parser = new PersonParser('people.csv');
 
-let persona = ['301','Ilham','H','ilham@mail.com','0327327238','2012-02-29T23:34:35-08:00'];
-parser.addPerson(persona);
+
 console.log(parser.people);
 
+console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
+
+parser.addPerson('301','Ilham','H','ilham@mail.com','0327327238','2012-02-29T23:34:35-08:00');
+parser.save();
 console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
