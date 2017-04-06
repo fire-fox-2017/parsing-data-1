@@ -21,15 +21,15 @@ class PersonParser {
     this._file = file;
     this._people = new Set();
     let data = fs.readFileSync(this._file).toString();
-    let parsedData = parse(data);
-    for (let i = 1; i < parsedData.length; i++) {
-      let person = new Person(parsedData[i][0],
-                              parsedData[i][1],
-                              parsedData[i][2],
-                              parsedData[i][3],
-                              parsedData[i][4],
-                              parsedData[i][5],
-                              parsedData[i][6]);
+    this._parsedData = parse(data);
+    for (let i = 1; i < this._parsedData.length; i++) {
+      let person = new Person(this._parsedData[i][0],
+                              this._parsedData[i][1],
+                              this._parsedData[i][2],
+                              this._parsedData[i][3],
+                              this._parsedData[i][4],
+                              this._parsedData[i][5],
+                              this._parsedData[i][6]);
       this._people.add(person);
     }
   }
@@ -42,8 +42,32 @@ class PersonParser {
     return this._people;
   }
 
+  addPersonToParsed(newPerson) {
+    let newPersonKeys = Object.keys(newPerson);
+    let newPersonArr = [];
+    for (let i = 0; i < newPersonKeys.length; i++) {
+      newPersonArr.push(newPerson[newPersonKeys[i]]);
+    }
+    this._parsedData.push(newPersonArr);
+  }
+
+  convertTocsv(data) {
+    let stringArr = [];
+    for (let i = 0; i < data.length; i++) {
+      stringArr.push(data[i].join(","));
+    }
+    let csvString = stringArr.join("\n");
+    return csvString;
+  }
+
+  writeFile() {
+    fs.writeFileSync(this.file, this.convertTocsv(this._parsedData));
+  }
+
   addPerson(newPerson) {
     this._people.add(newPerson);
+    this.addPersonToParsed(newPerson);
+    this.writeFile();
   }
 
 }
@@ -51,12 +75,12 @@ class PersonParser {
 let parser = new PersonParser('people.csv')
 console.log(parser.people);
 
-console.log(`There are ${parser.people.size} people in the file '${parser.file}'.`)
+// console.log(`There are ${parser.people.size} people in the file '${parser.file}'.`)
 
 let newPerson = new Person(201, "Entah", "Siapa", "entahsiapa@apalah.com",
                            "1-234-567-8910", Date());
 
-parser.addPerson(newPerson);
-console.log(parser.people);
+// parser.addPerson(newPerson);
+// console.log(parser.people);
 
-console.log(`There are ${parser.people.size} people in the file '${parser.file}'.`)
+// console.log(`There are ${parser.people.size} people in the file '${parser.file}'.`)
