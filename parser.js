@@ -72,9 +72,9 @@ console.log(parser.people);
 console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
 parser.addPerson(new Person({
     id: '201',
-    firstName: 'Haryana',
-    lastName: 'Wisnu',
-    email: 'wisnu@mail.com',
+    firstName: 'Deri',
+    lastName: 'Kurniawan',
+    email: 'deri@mail.com',
     phone: '0327327238',
     createdAt: '2017-04-22:09:03-08:00'
 }));
