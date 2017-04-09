@@ -29,13 +29,13 @@ class PersonParser {
     return this._people
   }
 
-  addPerson(objekPerson) {
-    let person = new Person(objekPerson)
+  addPerson(ObjectPerson) {
+    let person = new Person(ObjectPerson)
     this._people.push(person.data);
   }
 
-  saveFile(objekPerson){
-    let person = new Person(objekPerson)
+  saveFile(ObjectPerson){
+    let person = new Person(ObjectPerson)
     fs.appendFileSync("people.csv",JSON.stringify(person))
     return 'Selesai'
   }
