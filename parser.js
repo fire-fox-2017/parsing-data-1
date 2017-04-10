@@ -12,7 +12,6 @@ class Person {
 }
 
 class PersonParser {
-
     constructor(file) {
         this._file = file
         this._size = 0;
@@ -21,19 +20,16 @@ class PersonParser {
     }
 
     get peopleLength() {
-
-
         return this._people.length
     }
 
     parsingtoObject() {
         let test;
-        for (let i = 1; i < this._people.length; i++) {
+        for (let i = 0; i < this._people.length-1; i++) {
             test = this._people[i].split(',');
             this.addPerson(new Person(test[0], test[1], test[2], test[3], test[4], test[5]))
         }
         console.log(this._objPeople);
-
     }
 
     size() {
@@ -43,23 +39,20 @@ class PersonParser {
 
 
     save() {
-        fs.writeFile('people2.csv', this._objPeople, (err) => {
+    console.log(this._objPeople[200]);
+        fs.writeFile('people.csv', this._objPeople.join('\n'), (err) => {
             if (err) throw err;
             console.log('The file has been saved!');
         });
-
     }
 
 
     get file() {
         return this._file
-
     }
-
     addPerson(obj) {
         this._objPeople.push(`${obj.id},${obj.first_name},${obj.last_name},${obj.email},${obj.phone},${obj.created_at}`)
     }
-
 }
 
 let parser = new PersonParser('people.csv')
@@ -69,5 +62,5 @@ parser.parsingtoObject();
 
 //
 console.log(`There are ${parser.peopleLength} people in the file '${parser.file}'.`)
-parser.addPerson(new Person('201', 'Ivan', 'Habibi', 'ivanhabi2@gmail.com', '081321450548', '2012-05-10T03:53:40-07:00'));
+parser.addPerson(new Person('202', 'WISNU', 'Habsibi', 'ivanhabi2@gmail.com', '081321450548', '2012-05-10T03:53:40-07:00'));
 parser.save();
