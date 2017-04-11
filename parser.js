@@ -52,7 +52,7 @@ class PersonParser {
         let date = new Date(obj['createdAt']);
         obj['createdAt'] = date;
         this._people.push(obj);
-        console.log(this._people[201]);
+        // console.log(this._people[201]);
     }
 
     save() {
@@ -63,8 +63,8 @@ class PersonParser {
 }
 
 let parser = new PersonParser('people.csv');
-console.log(parser.people);
-console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
+// console.log(parser.people);
+// console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
 parser.addPerson(new Person({
     id: '201',
     firstName: 'Zulfikar Annur',
@@ -74,5 +74,5 @@ parser.addPerson(new Person({
     createdAt: '2017-04-10:19:24-07:00'
 }));
 parser.save();
-console.log(parser.people);
-console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
+// console.log(parser.people);
+// console.log(`There are ${parser.size} people in the file '${parser._file}'.`)
